@@ -1,0 +1,161 @@
+[
+    {
+        "region": "US",
+        "sources": {
+            "left": [
+                "https://www.alternet.org",
+                "https://www.theatlantic.com",
+                "https://www.democracynow.org",
+                "https://www.thedailybeast.com",
+                "https://www.huffpost.com",
+                "https://theintercept.com",
+                "https://jacobinmag.com",
+                "https://www.motherjones.com",
+                "https://www.msnbc.com",
+                "https://www.newyorker.com",
+                "https://www.nytimes.com/section/opinion",
+                "https://www.thenation.com",
+                "https://slate.com",
+                "https://www.vox.com"
+            ],
+            "lean left": [
+                "https://abcnews.go.com",
+                "https://apnews.com",
+                "https://www.axios.com",
+                "https://www.bloomberg.com",
+                "https://www.cbsnews.com",
+                "https://www.cnn.com",
+                "https://www.theguardian.com",
+                "https://www.insider.com",
+                "https://www.nbcnews.com",
+                "https://www.nytimes.com",
+                "https://www.npr.org",
+                "https://www.politico.com",
+                "https://www.propublica.org",
+                "https://time.com",
+                "https://www.washingtonpost.com",
+                "https://www.usatoday.com",
+                "https://news.yahoo.com"
+            ],
+            "center": [
+                "https://www.bbc.com/news",
+                "https://www.csmonitor.com",
+                "https://www.forbes.com",
+                "https://www.marketwatch.com",
+                "https://www.newsnationnow.com",
+                "https://www.newsweek.com",
+                "https://www.reuters.com",
+                "https://www.realclearpolitics.com",
+                "https://thehill.com",
+                "https://www.wsj.com",
+                "https://www.economist.com"
+            ],
+            "lean right": [
+                "https://thedispatch.com",
+                "https://www.theepochtimes.com",
+                "https://www.foxnews.com",
+                "https://www.foxbusiness.com",
+                "https://nypost.com/news",
+                "https://reason.com",
+                "https://www.wsj.com/opinion",
+                "https://www.washingtonexaminer.com"
+            ],
+            "right": [
+                "https://www.theamericanconservative.com",
+                "https://spectator.org",
+                "https://www.breitbart.com",
+                "https://www.theblaze.com",
+                "https://www2.cbn.com",
+                "https://dailycaller.com",
+                "https://www.dailymail.co.uk",
+                "https://www.dailywire.com",
+                "https://thefederalist.com",
+                "https://www.nationalreview.com",
+                "https://nypost.com/opinion",
+                "https://www.newsmax.com",
+                "https://www.oann.com",
+                "https://thepostmillennial.com",
+                "https://www.washingtontimes.com"
+            ],
+            "any": []
+        }
+    },
+    {
+        "region": "RU",
+        "sources": {
+            "left": [
+                "https://novayagazeta.ru/"
+            ],
+            "lean left": [
+                "https://www.themoscowtimes.com/",
+                "https://www.svoboda.org/"
+            ],
+            "center": [
+                "https://tass.ru/",
+                "https://www.interfax.ru/",
+                "https://www.rbc.ru/"
+            ],
+            "lean right": [
+                "https://www.kommersant.ru/",
+                "https://www.vedomosti.ru/"
+            ],
+            "right": [
+                "https://iz.ru/",
+                "https://rg.ru/",
+                "https://russian.rt.com/",
+                "https://www.rt.com/"
+            ],
+            "pro-government": [
+                "https://www.1tv.ru/",
+                "https://russia.tv/"
+            ],
+            "any": []
+        }
+    },    
+    {
+        "region": "CN",
+        "sources": {
+            "any": [
+                "http://www.people.com.cn/",
+                "http://www.xinhuanet.com/",
+                "http://www.cctv.com/",
+                "http://www.huanqiu.com/",
+                "http://www.chinadaily.com.cn/",
+                "https://news.qq.com/",
+                "https://www.scmp.com/",
+                "https://www.mingpao.com/",
+                "https://www.ltn.com.tw/",
+                "https://udn.com/"
+            ]
+        }
+    },
+    {
+        "region": "FR",
+        "sources": {
+            "left": [
+                "https://www.liberation.fr/",
+                "https://www.mediapart.fr/",
+                "https://www.humanite.fr/"
+            ],
+            "lean left": [
+                "https://www.lemonde.fr/",
+                "https://www.franceinter.fr/",
+                "https://www.telerama.fr/"
+            ],
+            "center": [
+                "https://www.lefigaro.fr/",
+                "https://www.france24.com/fr/",
+                "https://www.lesechos.fr/"
+            ],
+            "lean right": [
+                "https://www.valeursactuelles.com/",
+                "https://www.lepoint.fr/",
+                "https://www.lexpress.fr/"
+            ],
+            "right": [
+                "https://www.causeur.fr/",
+                "https://www.fdesouche.com/"
+            ]
+        }
+    }    
+]
