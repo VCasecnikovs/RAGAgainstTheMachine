@@ -1,15 +1,19 @@
 import requests
 import os
+from dotenv import load_dotenv
 
-headers = {"X-API-Key": os.environ.get("YOU_API_KEY", "")}
+load_dotenv()
 
 
-def _get_you_search_impl(query: str, page_index: int = 0, limit: int = 20, country: str = ""):
+headers = {"X-API-Key": os.environ.get("YOUCOM_API_KEY", "")}
+
+
+def _get_you_search_impl(
+    query: str, page_index: int = 0, limit: int = 20, country: str = ""
+):
     url = "https://api.ydc-index.io/search"
 
-    query_args = {
-        "query": query
-    }
+    query_args = {"query": query}
     if page_index:
         query_args["offset"] = page_index
     if limit:
@@ -23,19 +27,21 @@ def _get_you_search_impl(query: str, page_index: int = 0, limit: int = 20, count
     for line in response.json()["hits"]:
         snippets = " ".join(line["snippets"])
         description = ". ".join([line["title"], snippets])
-        results.append({
-            "url": line["url"],
-            "title": line["title"],
-            "text": description,
-        })
+        results.append(
+            {
+                "url": line["url"],
+                "title": line["title"],
+                "text": description,
+            }
+        )
     return results
 
 
-def _get_you_news_impl(query: str, page_index: int = 0, limit: int = 20, country: str = ""):
+def _get_you_news_impl(
+    query: str, page_index: int = 0, limit: int = 20, country: str = ""
+):
     url = "https://api.ydc-index.io/news"
-    query_args = {
-        "q": query
-    }
+    query_args = {"q": query}
     if page_index:
         query_args["offset"] = page_index
     if limit:
@@ -46,11 +52,9 @@ def _get_you_news_impl(query: str, page_index: int = 0, limit: int = 20, country
     response = requests.request("GET", url, headers=headers, params=query_args)
     results = []
     for line in response.json()["news"]["results"]:
-        results.append({
-            "url": line["url"],
-            "title": line["title"],
-            "text": line["description"]
-        })
+        results.append(
+            {"url": line["url"], "title": line["title"], "text": line["description"]}
+        )
     return results
 
 
@@ -73,10 +77,7 @@ SOURCES = {
 def get_data(query: str):
     results = []
     for source, get_func in SOURCES.items():
-        results.append({
-            "source": source,
-            "results": get_func(query)
-        })
+        results.append({"source": source, "results": get_func(query)})
     return results
 
 
