@@ -81,4 +81,4 @@ def get_data(query: str):
     return results
 
 
-print(get_data("Xi Jinping"))
+print(get_data("Sam Altman"))
