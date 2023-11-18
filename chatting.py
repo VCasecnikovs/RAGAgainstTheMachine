@@ -19,9 +19,7 @@ class Role(str, Enum):
 
 
 class ChatMessage(BaseModel):
-    id: int
     role: Role
-    timestamp: int
     content: str
 
 
@@ -39,12 +37,8 @@ def chat_inference(
         )
 
     completion = client.chat.completions.create(
-        model="gpt-3.5-turbo",
+        model="gpt-4-1106-preview",
         messages=[
-            {
-                "role": "system",
-                "content": "",
-            },
             *formatted_messages,
         ],
     )
