@@ -1,6 +1,8 @@
 import requests
 import os
 from dotenv import load_dotenv
+from chatting import ChatMessage, chat_inference, get_openAI_client, Role
+import json
 
 load_dotenv()
 
@@ -101,7 +103,7 @@ def get_newsapi_news(query: str):
 SOURCES = {
     "you_news": get_you_news,
     "you_search":  get_you_search,
-    "news_api": get_newsapi_news,
+    # "news_api": get_newsapi_news,
 }
 
 
@@ -155,10 +157,12 @@ def filter_urls(urls):
     )
     try:
         parsed_json = json.loads(assistant_answer)
-        return parsed_json
     except json.JSONDecodeError as e:
-        print("Error parsing JSON:", e)
-        return {"sources": {"any": urls}}
+        parsed_json = {"sources": {"any": urls}}
+    results = []
+    for key, value in parsed_json["sources"].items():
+        results.extend(value[:10])
+    return results
 
 if __name__ == '__main__':
     sources = get_data("Xi Jinping in San Francisco")
