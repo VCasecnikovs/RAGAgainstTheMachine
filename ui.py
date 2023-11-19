@@ -6,6 +6,7 @@ from sourcing import get_data
 
 
 from pydantic import BaseModel
+import json
 
 
 class Statement(BaseModel):
@@ -51,13 +52,51 @@ def create_messages_list(chat_history, message):
     messages_list.append(ChatMessage(role=Role.USER, content=message))
     return messages_list
 
-
 with gr.Blocks() as demo:
     chatbot = gr.Chatbot()
     msg = gr.Textbox()
     clear = gr.ClearButton([msg, chatbot])
 
+    cached_responses = []
+    cached_messages = []
+
+    def calculate_similarity(text1, cached_messages):
+        client = get_openAI_client()
+        max_similarity = 0.0
+        similar_message = ""
+        for text2 in cached_messages:
+            messages_list = [
+                ChatMessage(
+                    role=Role.SYSTEM,
+                    content="""Your task to compare two texts on similarity:
+                    Evaluate from 0 to 1. 
+                    If the texts are pretty similar output only: 1.0. If not at all: 0.0.
+                    Respond in JSON: {"value": <value>}
+                    """,
+                ),
+                ChatMessage(role=Role.USER, content=f"""Text1: '{text1}'; Text2: '{text2}'"""),
+            ]
+            assistant_answer = chat_inference(client=client, messages=messages_list)
+            try:
+                parsed_json = json.loads(assistant_answer)
+                sim = parsed_json.get("value", 0.0)
+                if sim > max_similarity:
+                    max_similarity = sim
+                    similar_message = text2
+            except json.JSONDecodeError as e:
+                pass
+
+        return max_similarity, similar_message
+
     def respond(message: str, chat_history: list[list[str]]):
+        similarity_threshold = 0.75
+        max_similarity, similar_message = calculate_similarity(message, cached_messages)
+
+        if max_similarity > similarity_threshold:
+            similar_response_index = cached_messages.index(similar_message)
+            new_pair = [message, cached_responses[similar_response_index]]
+            chat_history.append(new_pair)
+            return "", chat_history
         client = get_openAI_client()
 
         messages_list = create_messages_list(chat_history, message)
@@ -100,6 +139,8 @@ with gr.Blocks() as demo:
         new_pair = [message, parsed_answer]
 
         chat_history.append(new_pair)
+        cached_messages.append(message)
+        cached_responses.append(parsed_answer)
         return "", chat_history
 
     msg.submit(respond, [msg, chatbot], [msg, chatbot])
