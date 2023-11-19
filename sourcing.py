@@ -4,8 +4,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-headers = {"X-API-Key": os.environ.get("YOUCOM_API_KEY", "")}
-
+YOU_HEADERS = {"X-API-Key": os.environ.get("YOUCOM_API_KEY", "")}
 
 def _get_you_search_impl(
     query: str, page_index: int = 0, limit: int = 20, country: str = ""
@@ -20,7 +19,7 @@ def _get_you_search_impl(
     if country:
         query_args["country"] = country
 
-    response = requests.request("GET", url, headers=headers, params=query_args)
+    response = requests.request("GET", url, headers=YOU_HEADERS, params=query_args)
 
     results = []
     for line in response.json()["hits"]:
@@ -48,7 +47,7 @@ def _get_you_news_impl(
     if country:
         query_args["country"] = country
 
-    response = requests.request("GET", url, headers=headers, params=query_args)
+    response = requests.request("GET", url, headers=YOU_HEADERS, params=query_args)
     results = []
     for line in response.json()["news"]["results"]:
         results.append(
@@ -70,9 +69,39 @@ def get_you_news(query: str):
     return results
 
 
+def _get_newsapi_impl(
+    query: str, page_index: int = 0, limit: int = 20
+):
+    url = "https://newsapi.org/v2/everything"
+    query_args = {
+        "q": query,
+        "apiKey": os.environ.get("NEWSAPI_API_KEY")
+    }
+    if page_index:
+        query_args["page"] = page_index+1
+    if limit:
+        query_args["pageSize"] = limit
+
+    response = requests.request("GET", url, params=query_args)
+    results = []
+    for line in response.json()["articles"]:
+        results.append(
+            {"url": line["url"], "title": line["title"], "text": line["description"] + " " + line["content"]}
+        )
+    return results
+
+
+def get_newsapi_news(query: str):
+    results = []
+    for _ in range(3):
+        results.extend(_get_newsapi_impl(query, page_index=0))
+    return results
+
+
 SOURCES = {
     "you_news": get_you_news,
     "you_search":  get_you_search,
+    "news_api": get_newsapi_news,
 }
 
 
