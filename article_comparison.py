@@ -1,0 +1,65 @@
+
+TEST = [
+    """वाशिंगटन, नवंबर १३ (रॉयटर्स) - यू.एस. सीक्रेट सर्विस के एजेंट्स, जो राष्ट्रपति जो बाइडेन की पोती की सुरक्षा में तैनात थे, ने रविवार देर रात वाशिंगटन में एक अचिह्नित सीक्रेट सर्विस वाहन में घुसने का प्रयास करने वाले तीन लोगों पर गोलियाँ चलाईं, जैसा कि एसोसिएटेड प्रेस ने बताया।
+
+एक बयान में, यू.एस. सीक्रेट सर्विस ने कहा कि एजेंटों ने "संभवतः तीन" लोगों को एक सरकारी वाहन पर खिड़की तोड़ते हुए पाया, जिसमें से एक एजेंट ने हथियार चलाया और संदिग्ध तुरंत घटनास्थल से भाग गए।
+
+"माना जा रहा है कि किसी को भी नहीं मारा गया," सीक्रेट सर्विस ने बयान में कहा, जिसमें यह पुष्टि नहीं की गई थी कि क्या हथियार चलाने वाला एजेंट नाओमी बाइडेन की सुरक्षा के लिए तैनात विवरण का हिस्सा था। बयान में कहा गया था कि घटना वाशिंगटन के उम्दा जॉर्जटाउन पड़ोस में आधी रात से ठीक पहले हुई।
+
+"किसी भी संरक्षित व्यक्ति को कोई खतरा नहीं था," सीक्रेट सर्विस ने कहा।
+
+ए.पी., जिसने कहा कि एजेंट्स उस समय नाओमी बाइडेन के साथ उस पड़ोस में थे, ने एक अधिकारी का हवाला दिया जिसने गुमनाम रहते हुए बात की। एक सीक्रेट सर्विस प्रवक्ता ने कहा कि वह सुरक्षा कारणों से ए.पी. के खाते की पुष्टि""",
+
+    """华盛顿 - 据称，保护总统乔·拜登的孙女的特勤局特工在华盛顿哥伦比亚特区乔治敦社区的一辆无标记政府车辆遭三人企图闯入时开枪还击。
+
+据美联社报道，这些特工负责保护纳奥米·拜登，周日午夜前与她外出时看到三人砸碎了停放且无人的特勤局SUV的窗户。
+
+“一名联邦特工开枪，据信没有人被击中，”特勤局通讯主管安东尼·古利尔米在X（前身为Twitter）上发布的声明中说。“犯罪分子立即驾驶一辆红色车辆逃离现场，我们向支持部队发布了区域通缉令。没有任何受保护人员受到威胁，该事件正由华盛顿哥伦比亚特区警察局和特勤局调查。”
+
+我们对特勤局车辆遭破坏后武器开火事件的初步声明。两到三名嫌疑人驾车逃离现场，已向支持部队发布区域通报。@DCPoliceDept 正在调查此事件。
+
+安迪·克莱恩在华盛顿生活了大约20年。他住在乔治敦大学附近，并经营一家遛狗业务，经常穿行于该地区的社区。
+
+克莱恩说，不幸的是，汽车破窗和盗窃在这里并不少见。
+
+“我看到很多被砸碎的窗户。我从未遇到过实施者，但我曾捡回过背包和笔记本电脑。我尝试归还给主人，所以这么做了很多年。如今砸窗抢劫非常普遍，”他说。“我不感到惊讶。我惊讶的是我居然没有亲眼目睹行凶者，所以他们做得非常好。”
+
+梅根·赫斯特说，周日深夜她在家外听到了噪音，但没想太多，更不用说是枪声了。
+
+“住在华盛顿有趣的事情是，你可以过着日常生活，然后就在隔壁可能发生着涉及世界事件的非凡事情，而你却并不完全意识到，”赫斯特说。“这只是表明这是一个非常充满活力的城市，你永远不会完全知道发生了什么，直到事情发生后的第二天。”
+
+今年，这个国家的首都出现了大幅度增长的抢车和车辆盗窃案。
+
+根据华盛顿哥伦比亚特区警察局在线发布的犯罪数据，今年迄今为止在特区已有6,112起机动车盗窃报告。与去年同期相比增加了98%。截至周一，今年已报告了863起抢车案件。其中，635起涉及使用枪械。华盛顿哥伦比亚特区的暴力犯罪今年迄今也增加了39%。
+
+10月，德克萨斯州的美国众议员亨利·库埃亚尔在国会附近被三名持枪歹徒抢劫，他们偷走了他的车""",
+    """WASHINGTON (AP) — Secret Service agents protecting President Joe Biden’s granddaughter opened fire after three people tried to break into an unmarked Secret Service vehicle in the nation’s capital, a law enforcement official told The Associated Press.
+
+The agents, assigned to protect Naomi Biden, were out with her in the Georgetown neighborhood late Sunday night when they saw the three people breaking a window of the parked and unoccupied SUV, the official said. The official could not discuss details of the investigation publicly and spoke to the AP on Monday on the condition of anonymity.
+
+One of the agents opened fire, but no one was struck by the gunfire, the Secret Service said in a statement. The three people were seen fleeing in a red car, and the Secret Service said it put out a regional bulletin to Metropolitan Police to be on the lookout for it.
+
+The Metropolitan Police Department said Monday it was investigating the shooting, as it does with all police shootings in Washington. The agency said the “facts and evidence in the case will be independently reviewed by the United States Attorney’s Office.”
+
+Washington has seen a significant rise in the number of carjackings and car thefts this year. Police have reported more than 750 carjackings this year and more than 6,000 reports of stolen vehicles in the district. U.S. Rep. Henry Cuellar of Texas was carjacked near the Capitol last month by three armed assailants, who stole his car but didn’t physically harm him.
+
+Violent crime in Washington has also been on the rise this year, up more than 40% compared with last year. In February, U.S. Rep. Angie Craig of Minnesota was assaulted in her apartment building, suffering bruises while escaping serious injury."""
+]    
+
+def provide_prompt(articles):
+    prompt = "There are several news articles form different sources:\n\"\"\"\n"
+    for idx, item in enumerate(articles):
+        prompt += "{0}.\n```\n{1}\n```\n".format(idx+1, item)
+    prompt += """You task is:
+1. Output the commonalities within these articles, facts that they all agree?
+2. Output the diversities, about what one talks about and the other doesn't?
+3. Output the controversies, does one say one thing and the other the opposite?
+
+Respond in English. Return only JSON file"""
+    return prompt
+
+if __name__ == "__main__":
+    with open("test.txt", "w") as f:
+        prompt = provide_prompt(TEST)
+        f.write(prompt)
+
