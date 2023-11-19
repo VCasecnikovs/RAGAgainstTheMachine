@@ -79,5 +79,83 @@
             ],
             "any": []
         }
-    }
+    },
+    {
+        "region": "RU",
+        "sources": {
+            "left": [
+                "https://novayagazeta.ru/"
+            ],
+            "lean left": [
+                "https://www.themoscowtimes.com/",
+                "https://www.svoboda.org/"
+            ],
+            "center": [
+                "https://tass.ru/",
+                "https://www.interfax.ru/",
+                "https://www.rbc.ru/"
+            ],
+            "lean right": [
+                "https://www.kommersant.ru/",
+                "https://www.vedomosti.ru/"
+            ],
+            "right": [
+                "https://iz.ru/",
+                "https://rg.ru/",
+                "https://russian.rt.com/",
+                "https://www.rt.com/"
+            ],
+            "pro-government": [
+                "https://www.1tv.ru/",
+                "https://russia.tv/"
+            ],
+            "any": []
+        }
+    },    
+    {
+        "region": "CN",
+        "sources": {
+            "any": [
+                "http://www.people.com.cn/",
+                "http://www.xinhuanet.com/",
+                "http://www.cctv.com/",
+                "http://www.huanqiu.com/",
+                "http://www.chinadaily.com.cn/",
+                "https://news.qq.com/",
+                "https://www.scmp.com/",
+                "https://www.mingpao.com/",
+                "https://www.ltn.com.tw/",
+                "https://udn.com/"
+            ]
+        }
+    },
+    {
+        "region": "FR",
+        "sources": {
+            "left": [
+                "https://www.liberation.fr/",
+                "https://www.mediapart.fr/",
+                "https://www.humanite.fr/"
+            ],
+            "lean left": [
+                "https://www.lemonde.fr/",
+                "https://www.franceinter.fr/",
+                "https://www.telerama.fr/"
+            ],
+            "center": [
+                "https://www.lefigaro.fr/",
+                "https://www.france24.com/fr/",
+                "https://www.lesechos.fr/"
+            ],
+            "lean right": [
+                "https://www.valeursactuelles.com/",
+                "https://www.lepoint.fr/",
+                "https://www.lexpress.fr/"
+            ],
+            "right": [
+                "https://www.causeur.fr/",
+                "https://www.fdesouche.com/"
+            ]
+        }
+    }    
 ]
