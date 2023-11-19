@@ -14,6 +14,13 @@ class Statement(BaseModel):
     urls: list[str]
 
 
+def format_urls(urls: list[str]) -> str:
+    formatted_urls = ""
+    for i, url in enumerate(urls, start=1):
+        formatted_urls += f"({i})[{url}] "
+    return formatted_urls
+
+
 class ArticleComparison(BaseModel):
     commonalities: list[Statement]
     divergencies: list[Statement]
@@ -21,13 +28,13 @@ class ArticleComparison(BaseModel):
 
     def __str__(self):
         commonalities = "\n".join(
-            [f"🔵 {c.statement} - {', '.join(c.urls)}" for c in self.commonalities]
+            [f"🔵 {c.statement} - {format_urls(c.urls)}\n" for c in self.commonalities]
         )
         divergencies = "\n".join(
-            [f"🟠 {d.statement} - {', '.join(d.urls)}" for d in self.divergencies]
+            [f"🟠 {d.statement} - {format_urls(d.urls)}\n" for d in self.divergencies]
         )
         contradictions = "\n".join(
-            [f"🔴 {c.statement} - {', '.join(c.urls)}" for c in self.contradictions]
+            [f"🔴 {c.statement} - {format_urls(c.urls)}\n" for c in self.contradictions]
         )
 
         return f"Commonalities:\n{commonalities}\n\nDivergencies:\n{divergencies}\n\nContradictions:\n{contradictions}"
@@ -73,8 +80,8 @@ with gr.Blocks() as demo:
                 Return JSON format:
                 {
                 "commonalities" : [{"statement": "First commonality", "urls": ["source_url1", "source_url2", "source_url3"]}, {"statement": "Second commonality", "urls": ["source_url1", "source_url2", "source_url3"]},],
-                "divergencies" : [{"divergent statement": "Divergency description", "urls": ["source_url1", "source_url2", "source_url3"]}, {"divergent statement": "Divergency description", "urls": ["source_url1", "source_url2", "source_url3"]}]
-                "contradictions" : [{"contradictive statement": "Contradiction Descriptions", "urls": ["source_url1", "source_url2", "source_url3"]}, {"contradictive statement": "Contradiction Descriptions", "urls": ["source_url1", "source_url2", "source_url3"]}]
+                "divergencies" : [{"statement": "Divergency description", "urls": ["source_url1", "source_url2", "source_url3"]}, {"statement": "Divergency description", "urls": ["source_url1", "source_url2", "source_url3"]}]
+                "contradictions" : [{"statement": "Contradiction Descriptions", "urls": ["source_url1", "source_url2", "source_url3"]}, {"statement": "Contradiction Descriptions", "urls": ["source_url1", "source_url2", "source_url3"]}]
                 }            
                 
                 """,
@@ -83,13 +90,14 @@ with gr.Blocks() as demo:
         ]
 
         assistant_answer = chat_inference(client=client, messages=messages_list)
+        print(assistant_answer)
 
         if assistant_answer is None:
             return "", chat_history
 
-        parsed_answer = ArticleComparison.parse_raw(assistant_answer)
+        parsed_answer = str(ArticleComparison.parse_raw(assistant_answer))
 
-        new_pair = [message, assistant_answer]
+        new_pair = [message, parsed_answer]
 
         chat_history.append(new_pair)
         return "", chat_history
