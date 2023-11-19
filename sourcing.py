@@ -1,12 +1,14 @@
 import requests
 import os
 from dotenv import load_dotenv
-from chatting import ChatMessage, chat_inference, get_openAI_client, Role
+from newspaper import Article
+from chatting import chat_inference, ChatMessage, get_openAI_client, Role
 import json
 
 load_dotenv()
 
 YOU_HEADERS = {"X-API-Key": os.environ.get("YOUCOM_API_KEY", "")}
+
 
 def _get_you_search_impl(
     query: str, page_index: int = 0, limit: int = 20, country: str = ""
@@ -66,7 +68,7 @@ def get_you_search(query: str):
 def get_you_news(query: str):
     # TODO: pass the page here somehow
     results = []
-    for _ in range(3):
+    for _ in range(1):
         results.extend(_get_you_news_impl(query, page_index=0, country=""))
     return results
 
@@ -95,30 +97,34 @@ def _get_newsapi_impl(
 
 def get_newsapi_news(query: str):
     results = []
-    for _ in range(3):
+    for _ in range(1):
         results.extend(_get_newsapi_impl(query, page_index=0))
     return results
 
 
 SOURCES = {
     "you_news": get_you_news,
-    "you_search":  get_you_search,
+    # "you_search":  get_you_search,
     # "news_api": get_newsapi_news,
 }
 
 
-def get_data(query: str):
-    results = []
-    for source, get_func in SOURCES.items():
-        results.append(get_func(query))
-    return results
+def get_page_text(url: str) -> str:
+    try:
+        article = Article(url)
+        article.download()
+        article.parse()
+        return article.text
+    except Exception:
+        return ""
 
-def extract_urls(sources):
-    urls = []
-    for source in sources:
-        for article in source:
-            urls.append(article["url"])
-    return urls
+
+def scrape_data(articles_data: list[dict]):
+    for article in articles_data:
+        parsed_text = get_page_text(article["url"])
+        if parsed_text:
+            article["text"] = article["text"] + " ." + parsed_text
+
 
 def filter_urls(urls):
     client = get_openAI_client()
@@ -132,9 +138,9 @@ def filter_urls(urls):
         ChatMessage(
             role=Role.SYSTEM,
             content=f"""User will send you list of URLs. Based on your knowledge and the "categories" below, assign URLs to the listed categories:
-            
+
             Categories: {json_string}
-            
+
             Return JSON format:
             "sources": {{
                 "left": [<items>],
@@ -152,7 +158,7 @@ def filter_urls(urls):
     ]
 
     assistant_answer = chat_inference(
-        client=client, 
+        client=client,
         messages=messages_list
     )
     try:
@@ -164,8 +170,17 @@ def filter_urls(urls):
         results.extend(value[:10])
     return results
 
+
+def get_data(query: str):
+    results = []
+    for source, get_func in SOURCES.items():
+        results.extend(get_func(query))
+    urls = [r["url"] for r in results]
+    urls_filtered = set(filter_urls(urls))
+    results_filtered = [r for r in results if r["url"] in urls_filtered]
+    scrape_data(results_filtered)
+    return results_filtered
+
+
 if __name__ == '__main__':
-    sources = get_data("Xi Jinping in San Francisco")
-    urls = extract_urls(sources)
-    res = filter_urls(urls)
-    # import pdb; pdb.set_trace()
+    print(get_data("Xi Jinping in San Francisco"))

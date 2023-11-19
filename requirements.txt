@@ -1,3 +1,5 @@
 gradio
 requests
 python-dotenv
+newspaper3k
+openai
