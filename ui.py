@@ -1,6 +1,5 @@
 import gradio as gr
 
-
 from chatting import ChatMessage, chat_inference, get_openAI_client, Role
 
 from sourcing import get_data
@@ -17,7 +16,7 @@ class Statement(BaseModel):
 def format_urls(urls: list[str]) -> str:
     formatted_urls = ""
     for i, url in enumerate(urls, start=1):
-        formatted_urls += f"({i})[{url}] "
+        formatted_urls += f"[{i}]({url}) "
     return formatted_urls
 
 
@@ -37,7 +36,7 @@ class ArticleComparison(BaseModel):
             [f"🔴 {c.statement} - {format_urls(c.urls)}\n" for c in self.contradictions]
         )
 
-        return f"Commonalities:\n{commonalities}\n\nDivergencies:\n{divergencies}\n\nContradictions:\n{contradictions}"
+        return f"Commonalities:\n\n{commonalities}\n\nDivergencies:\n\n{divergencies}\n\nContradictions:\n\n{contradictions}"
 
 
 def create_messages_list(chat_history, message):
