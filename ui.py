@@ -74,6 +74,7 @@ with gr.Blocks() as demo:
                 Controversies - contradictory points, it relates to any contradicting information or opposing views.
                 
                 Ignore unrelated sources.
+                Most hot divergencies and contradictions must come first.
                 You need to return JSON file.
                 
                 Return JSON format:
