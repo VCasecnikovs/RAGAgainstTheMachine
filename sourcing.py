@@ -111,6 +111,57 @@ def get_data(query: str):
         results.append(get_func(query))
     return results
 
+def extract_urls(sources):
+    urls = []
+    for source in sources:
+        for article in source:
+            urls.append(article["url"])
+    return urls
+
+def filter_urls(urls):
+    client = get_openAI_client()
+
+    with open('news_sources.json', 'r') as file:
+        data = json.load(file)
+
+    json_string = json.dumps(data[0], indent=4)
+
+    messages_list = [
+        ChatMessage(
+            role=Role.SYSTEM,
+            content=f"""User will send you list of URLs. Based on your knowledge and the "categories" below, assign URLs to the listed categories:
+            
+            Categories: {json_string}
+            
+            Return JSON format:
+            "sources": {{
+                "left": [<items>],
+                "lean left": [<items>],
+                "center": [<items>],
+                "lean right": [<items>],
+                "right": [<items>],
+                "any": [<items>]
+            }}
+
+            Don't miss elements of URLs list. Assign to "any" if no better option
+            """
+        ),
+        ChatMessage(role=Role.USER, content=f"""URLs: {urls}"""),
+    ]
+
+    assistant_answer = chat_inference(
+        client=client, 
+        messages=messages_list
+    )
+    try:
+        parsed_json = json.loads(assistant_answer)
+        return parsed_json
+    except json.JSONDecodeError as e:
+        print("Error parsing JSON:", e)
+        return {"sources": {"any": urls}}
 
 if __name__ == '__main__':
-    print(get_data("Xi Jinping in San Francisco"))
+    sources = get_data("Xi Jinping in San Francisco")
+    urls = extract_urls(sources)
+    res = filter_urls(urls)
+    # import pdb; pdb.set_trace()
