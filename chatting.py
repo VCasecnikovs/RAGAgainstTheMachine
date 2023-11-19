@@ -37,6 +37,7 @@ def chat_inference(
         )
 
     completion = client.chat.completions.create(
+        response_format={"type": "json_object"},
         model="gpt-4-1106-preview",
         messages=[
             *formatted_messages,

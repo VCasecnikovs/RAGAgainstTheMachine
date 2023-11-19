@@ -1,5 +1,8 @@
-TEST = [
-    """वाशिंगटन, नवंबर १३ (रॉयटर्स) - यू.एस. सीक्रेट सर्विस के एजेंट्स, जो राष्ट्रपति जो बाइडेन की पोती की सुरक्षा में तैनात थे, ने रविवार देर रात वाशिंगटन में एक अचिह्नित सीक्रेट सर्विस वाहन में घुसने का प्रयास करने वाले तीन लोगों पर गोलियाँ चलाईं, जैसा कि एसोसिएटेड प्रेस ने बताया।
+There are several news articles form different sources:
+"""
+1.
+```
+वाशिंगटन, नवंबर १३ (रॉयटर्स) - यू.एस. सीक्रेट सर्विस के एजेंट्स, जो राष्ट्रपति जो बाइडेन की पोती की सुरक्षा में तैनात थे, ने रविवार देर रात वाशिंगटन में एक अचिह्नित सीक्रेट सर्विस वाहन में घुसने का प्रयास करने वाले तीन लोगों पर गोलियाँ चलाईं, जैसा कि एसोसिएटेड प्रेस ने बताया।
 
 एक बयान में, यू.एस. सीक्रेट सर्विस ने कहा कि एजेंटों ने "संभवतः तीन" लोगों को एक सरकारी वाहन पर खिड़की तोड़ते हुए पाया, जिसमें से एक एजेंट ने हथियार चलाया और संदिग्ध तुरंत घटनास्थल से भाग गए।
 
@@ -7,8 +10,11 @@ TEST = [
 
 "किसी भी संरक्षित व्यक्ति को कोई खतरा नहीं था," सीक्रेट सर्विस ने कहा।
 
-ए.पी., जिसने कहा कि एजेंट्स उस समय नाओमी बाइडेन के साथ उस पड़ोस में थे, ने एक अधिकारी का हवाला दिया जिसने गुमनाम रहते हुए बात की। एक सीक्रेट सर्विस प्रवक्ता ने कहा कि वह सुरक्षा कारणों से ए.पी. के खाते की पुष्टि""",
-    """华盛顿 - 据称，保护总统乔·拜登的孙女的特勤局特工在华盛顿哥伦比亚特区乔治敦社区的一辆无标记政府车辆遭三人企图闯入时开枪还击。
+ए.पी., जिसने कहा कि एजेंट्स उस समय नाओमी बाइडेन के साथ उस पड़ोस में थे, ने एक अधिकारी का हवाला दिया जिसने गुमनाम रहते हुए बात की। एक सीक्रेट सर्विस प्रवक्ता ने कहा कि वह सुरक्षा कारणों से ए.पी. के खाते की पुष्टि
+```
+2.
+```
+华盛顿 - 据称，保护总统乔·拜登的孙女的特勤局特工在华盛顿哥伦比亚特区乔治敦社区的一辆无标记政府车辆遭三人企图闯入时开枪还击。
 
 据美联社报道，这些特工负责保护纳奥米·拜登，周日午夜前与她外出时看到三人砸碎了停放且无人的特勤局SUV的窗户。
 
@@ -30,8 +36,11 @@ TEST = [
 
 根据华盛顿哥伦比亚特区警察局在线发布的犯罪数据，今年迄今为止在特区已有6,112起机动车盗窃报告。与去年同期相比增加了98%。截至周一，今年已报告了863起抢车案件。其中，635起涉及使用枪械。华盛顿哥伦比亚特区的暴力犯罪今年迄今也增加了39%。
 
-10月，德克萨斯州的美国众议员亨利·库埃亚尔在国会附近被三名持枪歹徒抢劫，他们偷走了他的车""",
-    """WASHINGTON (AP) — Secret Service agents protecting President Joe Biden’s granddaughter opened fire after three people tried to break into an unmarked Secret Service vehicle in the nation’s capital, a law enforcement official told The Associated Press.
+10月，德克萨斯州的美国众议员亨利·库埃亚尔在国会附近被三名持枪歹徒抢劫，他们偷走了他的车
+```
+3.
+```
+WASHINGTON (AP) — Secret Service agents protecting President Joe Biden’s granddaughter opened fire after three people tried to break into an unmarked Secret Service vehicle in the nation’s capital, a law enforcement official told The Associated Press.
 
 The agents, assigned to protect Naomi Biden, were out with her in the Georgetown neighborhood late Sunday night when they saw the three people breaking a window of the parked and unoccupied SUV, the official said. The official could not discuss details of the investigation publicly and spoke to the AP on Monday on the condition of anonymity.
 
@@ -41,24 +50,11 @@ The Metropolitan Police Department said Monday it was investigating the shooting
 
 Washington has seen a significant rise in the number of carjackings and car thefts this year. Police have reported more than 750 carjackings this year and more than 6,000 reports of stolen vehicles in the district. U.S. Rep. Henry Cuellar of Texas was carjacked near the Capitol last month by three armed assailants, who stole his car but didn’t physically harm him.
 
-Violent crime in Washington has also been on the rise this year, up more than 40% compared with last year. In February, U.S. Rep. Angie Craig of Minnesota was assaulted in her apartment building, suffering bruises while escaping serious injury.""",
-]
-
-
-def provide_prompt(articles):
-    prompt = 'There are several news articles form different sources:\n"""\n'
-    for idx, item in enumerate(articles):
-        prompt += "{0}.\n```\n{1}\n```\n".format(idx + 1, item)
-    prompt += """Your task is:
+Violent crime in Washington has also been on the rise this year, up more than 40% compared with last year. In February, U.S. Rep. Angie Craig of Minnesota was assaulted in her apartment building, suffering bruises while escaping serious injury.
+```
+Your task is:
 1. Output the commonalities within these articles, facts that they all agree
 2. Output the diversities, about what one talks about and the other doesn't
 3. Output the controversies, does one say one thing and the other the opposite
 
-Respond in English. Return only JSON file"""
-    return prompt
-
-
-if __name__ == "__main__":
-    with open("test.txt", "w") as f:
-        prompt = provide_prompt(TEST)
-        f.write(prompt)
+Respond in English. Return only JSON file

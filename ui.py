@@ -1,10 +1,36 @@
 import gradio as gr
-import random
-import time
+
 
 from chatting import ChatMessage, chat_inference, get_openAI_client, Role
 
 from sourcing import get_data
+
+
+from pydantic import BaseModel
+
+
+class Statement(BaseModel):
+    statement: str
+    urls: list[str]
+
+
+class ArticleComparison(BaseModel):
+    commonalities: list[Statement]
+    divergencies: list[Statement]
+    contradictions: list[Statement]
+
+    def __str__(self):
+        commonalities = "\n".join(
+            [f"🔵 {c.statement} - {', '.join(c.urls)}" for c in self.commonalities]
+        )
+        divergencies = "\n".join(
+            [f"🟠 {d.statement} - {', '.join(d.urls)}" for d in self.divergencies]
+        )
+        contradictions = "\n".join(
+            [f"🔴 {c.statement} - {', '.join(c.urls)}" for c in self.contradictions]
+        )
+
+        return f"Commonalities:\n{commonalities}\n\nDivergencies:\n{divergencies}\n\nContradictions:\n{contradictions}"
 
 
 def create_messages_list(chat_history, message):
@@ -31,21 +57,37 @@ with gr.Blocks() as demo:
         messages_list = create_messages_list(chat_history, message)
 
         news_data = get_data(message)
+        print(news_data)
 
         messages_list = [
             ChatMessage(
                 role=Role.SYSTEM,
-                content="""User will send you a news. You need to find similarities and contradictions.
-                You need to return JSON file. {
-                "simmilarities" : [{"statement": "First simmilarity", "urls": ["source_url1", "source_url2", "source_url3"]}, {"statement": "Second simmilarity", "urls": ["source_url1", "source_url2", "source_url3"]},],
+                content="""User will send you news. You need to find commonalities, diversities and controversies.
+                Commonalities - consensus points or shared facts among the articles.
+                Divergencies - unique elements or differential aspects, distinct information or perpectives which are not commonly shared across the all articles.
+                Controversies - contradictory points, it relates to any contradicting information or opposing views.
+                
+                Ignore unrelated sources.
+                You need to return JSON file.
+                
+                Return JSON format:
+                {
+                "commonalities" : [{"statement": "First commonality", "urls": ["source_url1", "source_url2", "source_url3"]}, {"statement": "Second commonality", "urls": ["source_url1", "source_url2", "source_url3"]},],
+                "divergencies" : [{"divergent statement": "Divergency description", "urls": ["source_url1", "source_url2", "source_url3"]}, {"divergent statement": "Divergency description", "urls": ["source_url1", "source_url2", "source_url3"]}]
                 "contradictions" : [{"contradictive statement": "Contradiction Descriptions", "urls": ["source_url1", "source_url2", "source_url3"]}, {"contradictive statement": "Contradiction Descriptions", "urls": ["source_url1", "source_url2", "source_url3"]}]
-                Return only JSON File
-                }""",
+                }            
+                
+                """,
             ),
             ChatMessage(role=Role.SYSTEM, content=f"""News: {news_data}"""),
         ]
 
         assistant_answer = chat_inference(client=client, messages=messages_list)
+
+        if assistant_answer is None:
+            return "", chat_history
+
+        parsed_answer = ArticleComparison.parse_raw(assistant_answer)
 
         new_pair = [message, assistant_answer]
 
