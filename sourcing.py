@@ -123,7 +123,6 @@ def extract_urls(sources):
 def filter_urls(urls):
     client = get_openAI_client()
 
-        
     with open('news_sources.json', 'r') as file:
         data = json.load(file)
 
@@ -132,7 +131,7 @@ def filter_urls(urls):
     messages_list = [
         ChatMessage(
             role=Role.SYSTEM,
-            content=f"""User will send you list of URLs. Based on your knowledge and the list below, assign them to the listed categories:
+            content=f"""User will send you list of URLs. Based on your knowledge and the "categories" below, assign URLs to the listed categories:
             
             Categories: {json_string}
             
@@ -142,14 +141,20 @@ def filter_urls(urls):
                 "lean left": [<items>],
                 "center": [<items>],
                 "lean right": [<items>],
-                "right": [<items>]
+                "right": [<items>],
+                "any": [<items>]
             }}
+
+            Don't miss elements of URLs list. Assign to "any" if no better option
             """
         ),
-        ChatMessage(role=Role.SYSTEM, content=f"""URLs: {urls}"""),
+        ChatMessage(role=Role.USER, content=f"""URLs: {urls}"""),
     ]
 
-    assistant_answer = chat_inference(client=client, messages=messages_list)
+    assistant_answer = chat_inference(
+        client=client, 
+        messages=messages_list
+    )
     try:
         parsed_json = json.loads(assistant_answer)
         return parsed_json
@@ -161,4 +166,4 @@ if __name__ == '__main__':
     sources = get_data("Xi Jinping in San Francisco")
     urls = extract_urls(sources)
     res = filter_urls(urls)
-    import pdb; pdb.set_trace()
+    # import pdb; pdb.set_trace()
